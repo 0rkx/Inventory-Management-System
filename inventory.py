@@ -102,13 +102,35 @@ Reply with the Corresponding Number to your Choice
         print("Modification Complete")
     test_connection.commit()
 
+def fetch():
+    print("Function got called") #remove after testing
+    id = int(input("Enter the ID of the product you would like to fetch"))
+    cur.execute("SELECT Product_Name from products where PRODUCT_ID=%s",(id,))
+    name = cur.fetchone()[0]
+    cur.execute("SELECT Supplier from products where PRODUCT_ID=%s",(id,))
+    sup = cur.fetchone()[0]
+    cur.execute("SELECT Cost_Price from products where PRODUCT_ID=%s",(id,))
+    cp = cur.fetchone()[0]
+    cur.execute("SELECT Selling_Price from products where PRODUCT_ID=%s",(id,))
+    sp = cur.fetchone()[0]
+    cur.execute("SELECT Inventory from products where PRODUCT_ID=%s",(id,))
+    inventory = cur.fetchone()[0]   
+    print(f"Here are the details for the Product ID {id}")
+    print(f"Name: {name}")
+    print(f"Supplier: {sup}")
+    print(f"Inventory: {inventory}")
+    print(f"Cost Price: {cp}")
+    print(f"Selling Price: {sp}")
+
+
 
 x = (input("""
 Welcome to the Inventory Management Software
 Reply with 1 to get data on all prodcuts 
 Reply with 2 to add a product
 Reply with 3 to modify a product
-Reply with 4 to delete a product
+Reply with 4 to fetch details about a product
+Reply with 5 to delete a product
 -->"""))
 
 
@@ -119,6 +141,8 @@ elif x=="2":
 elif x=="3":
     modify()
 elif x=="4":
+    fetch()
+elif x=="5":
     del_product()
 else:
     print("idk what happened") #stays till testing ends
