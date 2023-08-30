@@ -1,19 +1,18 @@
-import mysql.connector
+import mysql.connector as mc
 from dotenv import load_dotenv
 import os
 load_dotenv()
 
 passw = os.getenv("PASSWORD")
-db_connection = mysql.connector.connect(host="localhost", user = "root", password = passw )
+db_connection = mc.connect(host="localhost", user = "root", password = passw )
 
 curs = db_connection.cursor()
 
-curs.execute("CREATE DATABASE IF NOT EXISTS test1")
-
-
+curs.execute("CREATE DATABASE IF NOT EXISTS test1")#change database after testing
 db_connection.close()
 
-test_connection = mysql.connector.connect(host="localhost",database="test1",user = "root",password = passw)
+#opening database
+test_connection = mc.connect(host="localhost",database="test1",user = "root",password = passw)
 cur = test_connection.cursor()
 
 cur.execute("""CREATE TABLE IF NOT EXISTS Products(
@@ -26,44 +25,55 @@ cur.execute("""CREATE TABLE IF NOT EXISTS Products(
     UNIQUE (PRODUCT_ID)
 );""")
 
-
 def add_product():
     print("Function Got Called") #remove when testing over
-    p_id = int(input("Enter the Product ID of the product:- "))#add if statement to make it 6 digit or else it will return a error
-    p_name = input("Enter the Name of the Product:- ")
-    p_supp = input("Enter the supplier of the product:- ")
-    p_cp = int(input("Enter the cost price of the product:- "))
-    p_sp = int(input("Enter the Selling price of the product:- "))
-    p_inv = int(input("Enter the Number of Items you are ADDING:- "))
-    insert_query = """
-        INSERT INTO Products (PRODUCT_ID, PRODUCT_NAME, SUPPLIER, COST_PRICE, SELLING_PRICE, INVENTORY)
-        VALUES (%s, %s, %s, %s, %s, %s);
-    """
-    insert_data = (p_id, p_name, p_supp, p_cp, p_sp, p_inv) 
-    cur.execute(insert_query, insert_data)
-    test_connection.commit() 
-    print("Product Added Sucessfully")
-
+    p_id = int(input("Enter the Product ID of the product:- "))
+    yz = str(p_id)
+    if len(yz) ==6:
+        p_name = input("Enter the Name of the Product:- ")
+        p_supp = input("Enter the supplier of the product:- ")
+        p_cp = int(input("Enter the cost price of the product:- "))
+        p_sp = int(input("Enter the Selling price of the product:- "))
+        p_inv = int(input("Enter the Number of Items you are ADDING:- "))
+        insert_query = """
+            INSERT INTO Products (PRODUCT_ID, PRODUCT_NAME, SUPPLIER, COST_PRICE, SELLING_PRICE, INVENTORY)
+            VALUES (%s, %s, %s, %s, %s, %s);
+        """
+        insert_data = (p_id, p_name, p_supp, p_cp, p_sp, p_inv) 
+        cur.execute(insert_query, insert_data)
+        test_connection.commit() 
+        print("Product Added Sucessfully")
+    else:
+        print("The Product ID Should be 6 Digits")
+        
 
 def del_product():
     print("Function got Called") #remove when testing over
     p_id = int(input("Enter the Product ID"))
     p_pass = input("What is the password to my SQL?")
-    if p_pass == passw:
-        cur.execute("Delete from Products where PRODUCT_ID=%s",(p_id,))#add error handling for wrong ID
-        print("Sucessful")
-        test_connection.commit()
-    else:
-        print("Wrong Password")
+    try:
+        if p_pass == passw:
+            cur.execute("Delete from Products where PRODUCT_ID=%s",(p_id,))
+            if cur.rowcount > 0:
+                print("Product Sucessfully Deleted")
+            else:
+                print("Product not Found with that ID")
+            test_connection.commit()
+            
+        else:
+            print("Wrong Password")
+            
+    except mc.Error as err:
+        print("Database Error", err)
 
-                 
-
+                
 def view_data():
     print("Function got Called") #remove when testing over
     cur.execute("SELECT * FROM Products")
     rows = cur.fetchall()
     for row in rows:
         print(row)
+    
 
 def modify():
     print("Function got Called") #remove when testing over
@@ -101,6 +111,7 @@ Reply with the Corresponding Number to your Choice
         cur.execute("UPDATE Products SET INVENTORY=%s Where Product_ID = %s",(new_inventory,id))
         print("Modification Complete")
     test_connection.commit()
+    
 
 def fetch():
     print("Function got called") #remove after testing
@@ -121,8 +132,7 @@ def fetch():
     print(f"Inventory: {inventory}")
     print(f"Cost Price: {cp}")
     print(f"Selling Price: {sp}")
-
-
+    
 
 x = (input("""
 Welcome to the Inventory Management Software
