@@ -28,7 +28,7 @@ python inventory.py
 5. Start the Inventory Management Software:
 
 ```bash
-python main.py
+python inventory.py
 
 ```
 ##  Features
