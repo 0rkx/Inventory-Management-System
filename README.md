@@ -19,7 +19,7 @@ pip install -r requirements.txt
 PASSWORD=your-mysql-password
 ```
 
-4. Set up the MySQL database and tables using the **setup_database.py** script:
+4. Set up the MySQL database and tables using the **inventory.py** script:
 
 ```bash
 python inventory.py
