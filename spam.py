@@ -1,7 +1,6 @@
 import mysql.connector as mc
 from dotenv import load_dotenv
 import os
-import supplier
 load_dotenv()
 
 passw = os.getenv("PASSWORD")
@@ -153,9 +152,7 @@ Reply with 2 to add a product
 Reply with 3 to modify a product
 Reply with 4 to fetch details about a product
 Reply with 5 to delete a product
-Reply with 6 to view Supplier data
-Reply with 7 to remove Supplier
-Reply with Q to Quit
+Reply with 6 to Exit
 """)
 
 while True:
@@ -173,10 +170,6 @@ while True:
     elif x=="5":
         del_product()
     elif x=="6":
-        supplier.supplierData(cur)
-    elif x=="7":
-        supplier.removeSupplier(cur,test_connection)
-    elif x.upper()=="Q":
         break
     else:
         print("idk what happened") #stays till testing ends
