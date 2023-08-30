@@ -2,6 +2,8 @@ import mysql.connector
 from mysql.connector import Error
 from dotenv import load_dotenv
 import os
+import supplier
+
 load_dotenv()
 
 passw = os.getenv("PASSWORD")
@@ -30,7 +32,6 @@ cur.execute("""CREATE TABLE IF NOT EXISTS Products(
 
 def add_product():
     try:
-        print("Function Got Called") #remove when testing over
         p_id = int(input("Enter the Product ID of the product:- "))#add if statement to make it 6 digit or else it will return a error
         p_name = input("Enter the Name of the Product:- ")
         p_supp = input("Enter the supplier of the product:- ")
@@ -51,7 +52,6 @@ def add_product():
 
 def del_product():
     try:
-        print("Function got Called") #remove when testing over
         p_id = int(input("Enter the Product ID"))
         p_pass = input("What is the password to my SQL?")
         if p_pass == passw:
@@ -77,7 +77,6 @@ def view_data():
 
 def modify():
     try:
-        print("Function got Called") #remove when testing over
         id = int(input("""Enter Product ID of the Item you want to Modify:- """))
         print("""
     Reply with the Corresponding Number to your Choice
@@ -117,7 +116,6 @@ def modify():
 
 def fetch():
     try:
-        print("Function got called") #remove after testing
         id = int(input("Enter the ID of the product you would like to fetch"))
         cur.execute("SELECT Product_Name from products where PRODUCT_ID=%s",(id,))
         name = cur.fetchone()[0]
@@ -139,13 +137,18 @@ def fetch():
         print(err)
 
 
+
+
+
 print("""Welcome to the Inventory Management Software
 Reply with 1 to get data on all prodcuts 
 Reply with 2 to add a product
 Reply with 3 to modify a product
 Reply with 4 to fetch details about a product
 Reply with 5 to delete a product
-Reply with 6 to Exit
+Reply with 6 to view Supplier data
+Reply with 7 to remove Supplier
+Reply with Q to Quit
 """)
 
 while True:
@@ -163,6 +166,10 @@ while True:
     elif x=="5":
         del_product()
     elif x=="6":
+        supplier.supplierData(cur)
+    elif x=="7":
+        supplier.removeSupplier(cur)
+    elif x.upper()=="Q":
         break
     else:
         print("idk what happened") #stays till testing ends
