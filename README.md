@@ -58,5 +58,5 @@ python inventory.py
 ## Contributing
 Contributions are welcomed! Feel free to submit pull requests for enhancements or bug fixes.
 
-## # License
+##  License
 This project is licensed under the MIT License.
