@@ -1,3 +1,4 @@
 .env
 .vscode
 spam.py
+__pycache__
