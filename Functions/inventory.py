@@ -6,7 +6,6 @@ passw = os.getenv("PASSWORD")
 
 
 
-
 def add_product(cur,test_connection):
     try:
         print("Function Got Called") #remove when testing over
@@ -35,20 +34,21 @@ def del_product(cur,test_connection):
     print("Function got Called") #remove when testing over
     p_id = int(input("Enter the Product ID"))
     p_pass = input("What is the password to my SQL?")
-    try:
-        if p_pass == passw:
+
+    if p_pass == passw:
+        try:
             cur.execute("Delete from Products where PRODUCT_ID=%s",(p_id,))
             if cur.rowcount > 0:
                 print("Product Sucessfully Deleted")
             else:
                 print("Product not Found with that ID")
             test_connection.commit()
-            
-        else:
+        except mc.Error as err:
+            print("Database Error", err)   
+    else:
             print("Wrong Password")
             
-    except mc.Error as err:
-        print("Database Error", err)
+
 
                 
 def view_data(cur,test_connection):
