@@ -1,32 +1,12 @@
 import mysql.connector as mc
+from mysql.connector import Error
 from dotenv import load_dotenv
 import os
-import supplier
-load_dotenv()
-
 passw = os.getenv("PASSWORD")
-db_connection = mc.connect(host="localhost", user = "root", password = passw )
 
-curs = db_connection.cursor()
 
-curs.execute("CREATE DATABASE IF NOT EXISTS test1")#change database after testing
-db_connection.close()
 
-#opening database
-test_connection = mc.connect(host="localhost",database="test1",user = "root",password = passw)
-cur = test_connection.cursor()
-
-cur.execute("""CREATE TABLE IF NOT EXISTS Products(
-    PRODUCT_ID int PRIMARY KEY,
-    PRODUCT_NAME varchar(255),
-    SUPPLIER varchar(255),
-    COST_PRICE int,
-    SELLING_PRICE int,
-    INVENTORY int,
-    UNIQUE (PRODUCT_ID)
-);""")
-
-def add_product():
+def add_product(cur,test_connection):
     try:
         print("Function Got Called") #remove when testing over
         p_id = int(input("Enter the Product ID of the product:- "))
@@ -50,27 +30,23 @@ def add_product():
     except mc.Error as err:
         print("Database Error", err)
 
-def del_product():
+def del_product(cur,test_connection):
     print("Function got Called") #remove when testing over
-    p_id = int(input("Enter the Product ID"))
-    p_pass = input("What is the password to my SQL?")
+    p_id = int(input("Enter the Product ID:- "))
     try:
-        if p_pass == passw:
             cur.execute("Delete from Products where PRODUCT_ID=%s",(p_id,))
             if cur.rowcount > 0:
                 print("Product Sucessfully Deleted")
             else:
                 print("Product not Found with that ID")
             test_connection.commit()
-            
-        else:
-            print("Wrong Password")
-            
     except mc.Error as err:
-        print("Database Error", err)
+            print("Database Error", err)   
+            
+
 
                 
-def view_data():
+def view_data(cur,test_connection):
     try:
         cur.execute("SELECT * FROM Products")
         rows = cur.fetchall()
@@ -81,7 +57,7 @@ def view_data():
         print("Database Error", err)
     
 
-def modify():
+def modify(cur,test_connection):
     try:
         print("Function got Called") #remove when testing over
         id = int(input("""Enter Product ID of the Item you want to Modify:- """))
@@ -123,10 +99,10 @@ def modify():
     
 
 
-def fetch():
+def fetch(cur,test_connection):
     try:
         print("Function got called") #remove after testing
-        id = int(input("Enter the ID of the product you would like to fetch"))
+        id = int(input("Enter the ID of the product you would like to fetch:- "))
         cur.execute("SELECT Product_Name from products where PRODUCT_ID=%s",(id,))
         name = cur.fetchone()[0]
         cur.execute("SELECT Supplier from products where PRODUCT_ID=%s",(id,))
@@ -147,36 +123,4 @@ def fetch():
         print("Database Error", err)
     
 
-print("""Welcome to the Inventory Management Software
-Reply with 1 to get data on all prodcuts 
-Reply with 2 to add a product
-Reply with 3 to modify a product
-Reply with 4 to fetch details about a product
-Reply with 5 to delete a product
-Reply with 6 to view Supplier data
-Reply with 7 to remove Supplier
-Reply with Q to Quit
-""")
-
-while True:
-    x = input("-->")
-
-    if x == "1":
-        view_data()
-    elif x=="2":
-        add_product()
-        
-    elif x=="3":
-        modify()
-    elif x=="4":
-        fetch()
-    elif x=="5":
-        del_product()
-    elif x=="6":
-        supplier.supplierData(cur)
-    elif x=="7":
-        supplier.removeSupplier(cur,test_connection)
-    elif x.upper()=="Q":
-        break
-    else:
-        print("idk what happened") #stays till testing ends
+ #stays till testing ends
