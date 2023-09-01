@@ -32,21 +32,16 @@ def add_product(cur,test_connection):
 
 def del_product(cur,test_connection):
     print("Function got Called") #remove when testing over
-    p_id = int(input("Enter the Product ID"))
-    p_pass = input("What is the password to my SQL?")
-
-    if p_pass == passw:
-        try:
+    p_id = int(input("Enter the Product ID:- "))
+    try:
             cur.execute("Delete from Products where PRODUCT_ID=%s",(p_id,))
             if cur.rowcount > 0:
                 print("Product Sucessfully Deleted")
             else:
                 print("Product not Found with that ID")
             test_connection.commit()
-        except mc.Error as err:
+    except mc.Error as err:
             print("Database Error", err)   
-    else:
-            print("Wrong Password")
             
 
 
@@ -107,7 +102,7 @@ def modify(cur,test_connection):
 def fetch(cur,test_connection):
     try:
         print("Function got called") #remove after testing
-        id = int(input("Enter the ID of the product you would like to fetch"))
+        id = int(input("Enter the ID of the product you would like to fetch:- "))
         cur.execute("SELECT Product_Name from products where PRODUCT_ID=%s",(id,))
         name = cur.fetchone()[0]
         cur.execute("SELECT Supplier from products where PRODUCT_ID=%s",(id,))
