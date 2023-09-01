@@ -124,3 +124,5 @@ def fetch(cur,test_connection):
     
 
  #stays till testing ends
+#add a stock LOW alert (stock <10) this will run when this file runs
+ #make the interfrence more user friendly

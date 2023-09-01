@@ -22,3 +22,4 @@ def removeSupplier(cursor,test_connection):
     except Error as err:
         print(err)
 
+#whenever you add or modify a product, make a file "Purchase Histroy" and store the details there
