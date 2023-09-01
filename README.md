@@ -13,22 +13,22 @@ cd inventory-management-software
 pip install -r requirements.txt
 ```
 
-3.Create a .env file in the project root and set your MySQL password:
+3.Create a .env file in the project root and functions folder and set your MySQL password:
 
 ```bash
 PASSWORD=your-mysql-password
 ```
 
-4. Set up the MySQL database and tables using the **inventory.py** script:
+4. Set up the MySQL database and tables using the **main.py** script:
 
 ```bash
-python inventory.py
+python main.py
 ```
 
 5. Start the Inventory Management Software:
 
 ```bash
-python inventory.py
+python main.py
 
 ```
 ##  Features
@@ -43,7 +43,7 @@ python inventory.py
 ## Future Enhancements
 - **Transaction Tracking:** Implement a comprehensive transaction tracking system to monitor sales, purchases, and inventory adjustments.
 
-- **User Authentication:** Enhance security with user authentication and authorization mechanisms.
+- **User Authentication:** Enhance security with user authentication and authorization mechanisms.   ✅
 
 - **Reports**: Generate insightful reports like sales analysis, inventory status, and financial statements.
 
