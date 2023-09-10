@@ -52,7 +52,10 @@ def view_data(cur,test_connection):
         rows = cur.fetchall()
         print("ID    NAME    SUPPLIER  CP  SP   AMT")
         for row in rows:
-            print(row)
+            for i in row:
+                print(str(i)+"     ",end="")
+            print()
+            #print(row)
     except mc.Error as err:
         print("Database Error", err)
     
@@ -119,10 +122,16 @@ def fetch(cur,test_connection):
         print(f"Inventory: {inventory}")
         print(f"Cost Price: {cp}")
         print(f"Selling Price: {sp}")
+
     except mc.Error as err:
         print("Database Error", err)
     
 
  #stays till testing ends
 #add a stock LOW alert (stock <10) this will run when this file runs
+def checkStock(cursor):
+    cursor.execute("SELECT * FROM Products WHERE INVENTORY<10")
+    items=cursor.fetchall()
+    for i in items:
+        print(i[1], "is low in stock")
  #make the interfrence more user friendly
