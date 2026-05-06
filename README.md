@@ -1,62 +1,54 @@
-# Inventory Management Software
-This Python-based Inventory Management Software uses MySQL as the database backend to manage products, suppliers, and transactions efficiently.
+# Inventory Management System
 
-## Installation
-1. Clone the repository:
+Functional inventory management system with basic CRUD (Create, Read, Update, Delete) operations for products and supplier-related actions
+
+## Overview
+
+This README documents the current implementation of `Inventory-Management-System`. It is based on the checked-in source files, package manifests, and entry points in the repository.
+
+## What It Covers
+
+- forms and data collection
+- commerce or inventory operations
+
+## Features
+
+- Role-based dashboards and navigation
+- Authentication or account flow screens
+- Supplier, inventory, order, or product management flows
+
+## Tech Stack
+
+- Python
+
+## Code Highlights
+
+- Entry points: main.py
+
+## Project Structure
+
+- `main.py`
+
+## Getting Started
+
+Clone the repository and install the dependencies for the part of the project you want to run.
+
+### Python
+
 ```bash
-git clone <repository-url>
-cd inventory-management-software
-```
-2.Install required dependencies:
-
-```bash 
-pip install -r requirements.txt
-```
-
-3.Create a .env file in the project root and functions folder and set your MySQL password:
-
-```bash
-PASSWORD=your-mysql-password
-```
-
-4. Set up the MySQL database and tables using the **main.py** script:
-
-```bash
+python -m venv .venv
+.venv\Scripts\activate
 python main.py
 ```
 
-5. Start the Inventory Management Software:
+## Environment Variables
 
-```bash
-python main.py
+The code references these environment keys:
 
-```
-##  Features
-- View data on all products
-- Add a new product
-- Modify product details
-- Fetch details about a product
-- Delete a product
-- View supplier data
-- Remove a supplier
+- `PASSWORD`
 
-## Future Enhancements
-- **Transaction Tracking:** Implement a comprehensive transaction tracking system to monitor sales, purchases, and inventory adjustments.
+## Development Notes
 
-- **User Authentication:** Enhance security with user authentication and authorization mechanisms.   ✅
-
-- **Reports**: Generate insightful reports like sales analysis, inventory status, and financial statements.
-
-- **Graphical User Interface (GUI):** Develop an intuitive GUI for a user-friendly experience.
-
-- **Barcode Integration:** Streamline data entry and retrieval through barcode scanning.
-
-- **Notifications:** Set up notifications for low inventory, successful transactions, and more.
-
-- **Data Analytics:** Utilize data analysis to identify trends, patterns, and make informed decisions.
-
-## Contributing
-Contributions are welcomed! Feel free to submit pull requests for enhancements or bug fixes.
-
-##  License
-This project is licensed under the MIT License.
+- Keep generated files, dependency folders, virtual environments, and build outputs out of commits.
+- Add screenshots or deployment links here when the project is running in production.
+- Update this README when entry points, environment variables, or setup steps change.
